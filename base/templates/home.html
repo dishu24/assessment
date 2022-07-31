@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-7 ">
+        <h4 class="text-center alert alert-primary mt-4">Books</h4>
+        <table class="table">  
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Book Name</th>
+              <th scope="col">Category</th>
+              <th scope="col">Rent/day</th>
+              <th scope="col"></th>  
+            </tr>
+          </thead>
+          <tbody>
+            {% for book in books %} 
+            <tr>          
+              <th scope="row">{{book.id}}</th>
+              <td>{{book.book_name}}</td>
+              <td>{{book.category}}</td>
+              <td>{{book.rent_per_day}}</td>
+              <td><a class="btn btn-warning btn-sm" href="{% url 'transactionrecord' book.id %}">Borrow</a></td>
+              {% comment %} <td >
+                <a class="btn btn-warning btn-sm" href="{% url 'edit_data' usr.id %}">Edit</a>
+                <a class="btn btn-danger btn-sm" href="{% url 'delete_data' usr.id %}">Delete</a>
+              </td> {% endcomment %}
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+
+    <div class="col-sm-5">
+        <h4 class="text-center alert alert-primary mt-4">Add Books</h4>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-floating mb-3 ">
+                <input type="text" class="form-control" name="book_name" id="floatingInput" placeholder="Book Name" Required>
+                <label for="floatingInput">Book Name</label>
+              </div>
+            <div class="form-floating mb-3">
+                <input type="text" class="form-control" name="category" id="floatingInput" placeholder="Category" Required>
+                <label for="floatingInput">Category</label>
+              </div>
+              <div class="form-floating">
+                <input type="text" class="form-control" name="rent_per_day" id="floatingInput" placeholder="rent/Day" Required>
+                <label for="floatingPassword">Rent/Day</label>
+              </div>
+              <br>
+              <button class="btn btn-success" type="submit">Add</button>
+        </form>
+
+    </div
+    
+
+</div>
+{% endblock content %}

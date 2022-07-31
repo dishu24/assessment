@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-4">
+        <h4 class="text-center alert alert-primary mt-4">Search Book</h4>
+        <form action="" method="get">
+            {% csrf_token %}
+            <div class="col">
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInputGrid" name="book_name" placeholder="Book Name">
+                <label for="floatingInputGrid">Book Name</label>
+                </div><br>
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInputGrid" name="category" placeholder="Category Name" >
+                <label for="floatingInputGrid">Category</label>
+                </div><br>
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingInputGrid" name="rent_per_book" placeholder="Rent per day" >
+                    <label for="floatingInputGrid">Rent/Day</label>
+                    </div><br>
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInputGrid" name="min_range" placeholder="min range" >
+                <label for="floatingInputGrid">Min Rent Range</label>
+                </div><br>
+                <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInputGrid" name="max_range" placeholder="max range" >
+                <label for="floatingInputGrid">Max Rent Rent</label>
+                </div><br>
+                <button class="btn btn-success" type="submit">Search Book</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-sm-8">
+        {% if forms %}
+            <h4 class="text-center alert alert-primary mt-4">Filter Books</h4>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Rent/Day</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for fm in forms %}
+                  <tr>          
+                    <th scope="row">{{fm.id}}</th>
+                    <td>{{fm.book_name}}</td>
+                    <td>{{fm.category}}</td>
+                    <td>{{fm.rent_per_day}}</td>
+            
+                  </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h4 class="text-center">No Book Found</h4> 
+        {% endif %}
+    </div>
+
+</div>
+{% endblock content %}

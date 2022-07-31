@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-9 ">
+        
+        {% if form %}
+            <h4 class="text-center alert alert-primary mt-4">Filter Records</h4>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">Person Name</th>
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Issued Date</th>
+                    <th scope="col">Return Date</th>
+                    <th scope="col">Total Rent</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for fm in form %}
+                  <tr>          
+                    <th scope="row">{{fm.id}}</th>
+                    <td>{{fm.person_name}}</td>
+                    <td>{{fm.book}}</td>
+                    <td>{{fm.issued_date}}</td>
+                    <td>{{fm.return_date}}</td>
+                    <td>{{fm.total_rent}}</td>
+                    {% comment %} <td >
+                      <a class="btn btn-warning btn-sm" href="{% url 'edit_data' usr.id %}">Edit</a>
+                      <a class="btn btn-danger btn-sm" href="{% url 'delete_data' usr.id %}">Delete</a>
+                    </td> {% endcomment %}
+                  </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        {% comment %} {% else %}
+            <h4 class="text-center">No Record Found</h4> {% endcomment %}
+        {% endif %}
+        <hr>
+        {% if transactions %}
+        <h4 class="text-center alert alert-primary mt-4">All Transactions</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">id</th>
+              <th scope="col">Person Name</th>
+              <th scope="col">Book Name</th>
+              <th scope="col">Issued Date</th>
+              <th scope="col">Return Date</th>
+              <th scope="col">Rent</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for bk in transactions %}
+            <tr>          
+              <th scope="row">{{bk.id}}</th>
+              <td>{{bk.person_name}}</td>
+              <td>{{bk.book}}</td>
+              <td>{{bk.issued_date}}</td>
+              <td>{{bk.return_date}}</td>
+              <td>{{bk.total_rent}}</td>
+              <td >
+                <a class="btn btn-warning btn-sm" href="{% url 'updatetransaction' bk.id %}">Edit</a>
+              
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <h4 class="text-center">No Record Found</h4>
+        {% endif %}
+        
+    </div>
+    <div class="col-sm-3">
+        <h4 class="text-center alert alert-primary mt-4">Search</h4>
+        <form action="" method="GET">
+            {% csrf_token %}
+            <div class="form-floating mb-1 ">
+              <input type="text" class="form-control" name="person_name" id="floatingInput" placeholder="Your Name">
+              <label for="floatingInput">Person Name</label>
+            </div>
+            <div class="form-floating mb-3 ">
+                <input type="text" class="form-control" name="book" id="floatingInput" placeholder="Book Name" >
+                <label for="floatingInput">Book Name</label>
+              </div>
+            <div class="form-floating mb-3">
+                <input type="date" class="form-control" name="issued_date_to" id="floatingInput" placeholder="issue date">
+                <label for="floatingInput">Issued Date To</label>
+              </div>
+              <div class="form-floating">
+                <input type="date" class="form-control" name="issued_date_end" id="floatingInput" placeholder="return date">
+                <label for="floatingPassword">Issued Date End</label>
+              </div>
+              <br>
+              <div class="form-floating">
+                <input type="text" class="form-control" name="total_rent" id="floatingInput" placeholder="">
+                <label for="floatingPassword">Total Amount</label>
+              </div>
+              <br>
+              <button class="btn btn-success" type="submit">Filter</button>
+        </form>
+
+    </div>
+
+    
+</div>
+{% endblock content %}
